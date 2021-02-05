@@ -1,0 +1,59 @@
+### GET MY FLIGHTS
+POST http://localhost:5000/voo/mine
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWNkYzI5ODI3ZmYwMDNlY2UwMDllNSIsImlhdCI6MTYxMjUyODYzMiwiZXhwIjoxNjEyNTI4OTMyfQ.TXao4s9DMMZjQzu667TExqsxY_VOemSj-UlXc3VJaMw"
+}
+
+### GET ALL FLIGHTS
+GET http://localhost:5000/voo/all
+
+
+### CREATE FLIGHT
+POST http://localhost:5000/voo
+Content-Type: application/json
+
+{
+  "leg": ["GIG"],
+  "faresMoney": 30,
+  "faresMiles": 500,
+  "fares": "$30,00 - 500 miles",
+  "origin": "GRU",
+  "destination": "LAX",
+  "departure1": "2021/05/02",
+  "passengers": 1
+}
+
+### CREATE USER
+PUT http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin@123"
+}
+
+### LOGIN
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin@123"
+}
+
+### GET AEROPORTOS
+GET http://localhost:5000/aeroporto
+
+### CREATE AEROPORTO
+POST http://localhost:5000/aeroporto
+Content-Type: application/json
+
+{
+    "code": "POA",
+    "name": "Salgado Filho",
+    "city": "Porto Alegre",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo"
+  }
