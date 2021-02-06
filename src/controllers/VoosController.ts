@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Voo, { GetVooRequest, CreateVooRequest } from '../models/Voo'
-import { getAeroporto } from '../Utils'
+import Aeroporto from '../controllers/AeroportoController'
 
 class VoosController {
   public async get (req: GetVooRequest, res: Response) : Promise<Response> {
@@ -32,16 +32,20 @@ class VoosController {
     const dadosVoo: {[k: string]: any} = { ...req.body }
     if (departure2) {
       const valid = verifyDateFormat(departure2)
-      !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
+      if (!valid) {
+        return res.status(400).json({ erro: 1, message: 'invalid date' })
+      }
       dadosVoo.departure2 = new Date(departure2)
     }
 
     const valid = verifyDateFormat(departure1)
-    !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
+    if (!valid) {
+      return res.status(400).json({ erro: 1, message: 'invalid date' })
+    }
     dadosVoo.departure1 = new Date(departure1)
-    dadosVoo.leg = await getAeroporto(leg)
-    dadosVoo.origin = await getAeroporto(origin)
-    dadosVoo.destination = await getAeroporto(destination)
+    if (leg) { dadosVoo.leg = await Aeroporto.getAeroporto(leg) }
+    dadosVoo.origin = await Aeroporto.getAeroporto(origin)
+    dadosVoo.destination = await Aeroporto.getAeroporto(destination)
     dadosVoo.totalPassengers = passengers
     const novoVoo = new Voo({ ...dadosVoo })
     await novoVoo.save()

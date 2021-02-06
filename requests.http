@@ -1,19 +1,15 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUxMDc4YWY4NjI2MjEzMGE2YjBjMiIsImlhdCI6MTYxMjU4NTg5NywiZXhwIjoxNjEyNTg2MTk3fQ.bk7AZZzACw1wrrE_O88e0Qcx-Opb-1zvD_SYPV-mS18
+@tokenNovo = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUxMDc4YWY4NjI2MjEzMGE2YjBjMiIsImlhdCI6MTYxMjU4NTkwNiwiZXhwIjoxNjEyNTg2MjA2fQ.Vx2KqfGoqHNs0vq6JduBMAsp_W3UrAIFwr3Sy3713-A
 ### COMPRAR VOO
 POST http://localhost:5000/checkout
 Content-Type: application/json
-Authorization: 
+authorization: {{token}}
 
 {
   "purchase":{
-    "flight1": "601df9857eafe116b08fd5d4",
-    "fare1": string,
-    "flight2": "601e04551094693084547a66",
-    "fare2": string,
-    "passengers": number,
-    "total": {
-      miles: number,
-      money: number
-    }
+    "flight1": "601e10c0af86262130a6b0c4",
+    "passengers": 3,
+    "cost": 25
   }
 }
 
@@ -21,7 +17,7 @@ Authorization:
 ### GET MY FLIGHTS
 POST http://localhost:5000/voo/mine
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWRjYzNlYTE2NTZkMDU3ODk0Yjk3NiIsImlhdCI6MTYxMjU2NzM1NywiZXhwIjoxNjEyNTY3NjU3fQ.XNyJHi_XG6vDCyXiEf1yiKN2ncMw-oxrR7oEDfkIN2A
+authorization: {{tokenNovo}}
 
 
 ### GET ALL FLIGHTS
@@ -33,7 +29,6 @@ POST http://localhost:5000/voo
 Content-Type: application/json
 
 {
-  "leg": ["LAX"],
   "faresMoney": 60,
   "faresMiles": 1000,
   "fares": "$30.00 - 3000 miles",
@@ -49,7 +44,8 @@ Content-Type: application/json
 
 {
   "username": "admin",
-  "password": "admin@123"
+  "password": "admin@123",
+  "money": 50000
 }
 
 ### LOGIN

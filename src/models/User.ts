@@ -10,6 +10,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  money: {
+    type: Number,
+    required: true
+  },
   myFlights: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Aeroporto',
@@ -19,18 +23,20 @@ const UserSchema = new Schema({
   timestamps: true
 })
 
+interface UserModel extends Document{
+  username: string;
+  password: string;
+  money: number;
+  myFlights: string[];
+}
+
 interface BuyFlightsRequest extends Request{
   body:{
     purchase:{
       flight1: string,
-      fare1: string,
-      flight2: string,
-      fare2: string,
+      flight2?: string,
       passengers: number,
-      total: {
-        miles: number,
-        money: number
-      }
+      cost: number
     }
   }
 }
@@ -46,12 +52,13 @@ interface LoginRequest extends Request{
     password: string;
   }
 }
-
-interface UserModel extends Document{
-  username: string;
-  password: string;
-  myFlights: string[];
+interface CreateUserRequest extends Request{
+  body:{
+    username: string;
+    password: string;
+    money: number;
+  }
 }
 
 export default model<UserModel>('User', UserSchema)
-export { LoginRequest, MyFlightsRequest, BuyFlightsRequest }
+export { LoginRequest, MyFlightsRequest, BuyFlightsRequest, CreateUserRequest }

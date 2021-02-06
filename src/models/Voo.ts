@@ -31,7 +31,7 @@ const VooSchema = new Schema({
   leg: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Aeroporto',
-    required: true
+    required: false
   }],
   faresMoney: {
     type: Number,
@@ -56,7 +56,7 @@ interface VooModel extends Document {
   passengers:number;
   totalPassengers:number;
   departure2:Date;
-  leg: string[];
+  leg?: string[];
   faresMoney:number;
   faresMiles:number;
   fares:string;
@@ -74,7 +74,7 @@ interface GetVooRequest extends Request{
 
 interface CreateVooRequest extends Request{
   body: {
-    leg: string[];
+    leg?: string[];
     faresMoney: number;
     faresMiles: number;
     fares: string;
