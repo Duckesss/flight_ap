@@ -1,8 +1,6 @@
 import { Response } from 'express'
 import User, { BuyFlightsRequest, LoginRequest, MyFlightsRequest } from '../models/User'
-import Voo from '../models/Voo'
-import { getNewToken, tokenBlockList } from '../config/jwtConfig'
-import * as Utils from '../config/Utils'
+import oauth from './OauthController'
 import { ObjectId } from 'mongodb'
 import * as dotenv from 'dotenv'
 dotenv.config({
@@ -13,7 +11,7 @@ class UserController {
   public async login (req: LoginRequest, res: Response) : Promise<Response> {
     const encontrouUsuario = await User.find({ ...req.body })
     if (encontrouUsuario.length) {
-      const token = getNewToken(encontrouUsuario[0]._id)
+      const token = oauth.getNewToken(encontrouUsuario[0]._id)
       return res.json({ auth: true, token })
     }
     return res.json([])
@@ -40,8 +38,8 @@ class UserController {
         }
       }
     })
-    tokenBlockList.push(req.params.Authorization)
-    const token = getNewToken(user._id)
+    oauth.addBlackList(req.params.Authorization)
+    const token = oauth.getNewToken(user._id)
     return res.json({ ...user, token })
   }
 }

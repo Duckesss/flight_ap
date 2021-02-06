@@ -2,7 +2,7 @@ import { Router } from 'express'
 import AeroportoController from '../controllers/AeroportoController'
 import UserController from '../controllers/UserController'
 import VoosController from '../controllers/VoosController'
-import verifyToken from '../config/jwtConfig'
+import verifyToken from '../middlewares/Oauth'
 import * as appInfo from '../../package.json'
 const routes = Router()
 

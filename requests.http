@@ -5,9 +5,9 @@ Authorization:
 
 {
   "purchase":{
-    "flight1": string,
+    "flight1": "601df9857eafe116b08fd5d4",
     "fare1": string,
-    "flight2": string,
+    "flight2": "601e04551094693084547a66",
     "fare2": string,
     "passengers": number,
     "total": {
@@ -33,14 +33,14 @@ POST http://localhost:5000/voo
 Content-Type: application/json
 
 {
-  "leg": ["GIG"],
-  "faresMoney": 30,
-  "faresMiles": 500,
-  "fares": "$30.00 - 500 miles",
+  "leg": ["LAX"],
+  "faresMoney": 60,
+  "faresMiles": 1000,
+  "fares": "$30.00 - 3000 miles",
   "origin": "GRU",
   "destination": "LAX",
   "departure1": "2021/05/05",
-  "passengers": 1
+  "passengers": 50
 }
 
 ### CREATE USER

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Voo, { GetVooRequest, CreateVooRequest } from '../models/Voo'
-import { getAeroporto } from '../config/Utils'
+import { getAeroporto } from '../Utils'
 
 class VoosController {
   public async get (req: GetVooRequest, res: Response) : Promise<Response> {

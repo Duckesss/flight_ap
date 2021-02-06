@@ -1,4 +1,4 @@
-import app from './config/app'
+import app from './app'
 import * as appInfo from '../package.json'
 const PORT = 5000
 
