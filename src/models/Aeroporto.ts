@@ -1,18 +1,6 @@
 import { Schema, model, Document } from 'mongoose'
 import { Request } from 'express'
 
-interface AeroportoInterface{
-  code: string;
-  name: string;
-  city: string;
-  country: string;
-  timezone: string;
-}
-
-interface AeroportoCreate extends Request{
-  body:AeroportoInterface
-}
-
 const AeroportoSchema = new Schema({
   code: {
     type: String,
@@ -37,6 +25,25 @@ const AeroportoSchema = new Schema({
 }, {
   timestamps: true
 })
-type AeroportoModel = Document<AeroportoInterface>
+
+interface AeroportoModel extends Document{
+  code:string;
+  name:string;
+  city:string;
+  country:string;
+  timezone:string
+}
+
+interface AeroportoCreateRequest extends Request{
+  body: {
+    code: string;
+    name: string;
+    city: string;
+    country: string;
+    timezone: string;
+
+  }
+}
+
 export default model<AeroportoModel>('Aeroporto', AeroportoSchema)
-export { AeroportoCreate, AeroportoInterface }
+export { AeroportoCreateRequest }

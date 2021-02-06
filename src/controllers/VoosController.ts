@@ -1,35 +1,21 @@
 import { Request, Response } from 'express'
-import Aeroporto from '../models/Aeroporto'
-import Voo, { VooRequest, RequestCreate } from '../models/Voo'
-
-interface ObjVoo{
-  [key:string]:any
-}
-async function getAeroporto (codAeroporto : string | string[]) {
-  let aeroporto
-  if (typeof codAeroporto === 'string') {
-    aeroporto = await Aeroporto.find({
-      code: codAeroporto
-    })
-  } else {
-    const searchAeroporto = codAeroporto.map(code => ({ code }))
-    aeroporto = await Aeroporto.find({
-      $or: searchAeroporto
-    })
-  }
-  return aeroporto.map(e => e._id)
-}
+import Voo, { GetVooRequest, CreateVooRequest } from '../models/Voo'
+import { getAeroporto } from '../config/Utils'
 
 class VoosController {
-  public async get (req: VooRequest, res: Response) : Promise<Response> {
-    const { departure1, departure2 = '' } = req.body
-    if (departure2 !== '') {
-      const valid = verifyDateFormat(departure1)
+  public async get (req: GetVooRequest, res: Response) : Promise<Response> {
+    const { departure1, departure2 } = req.body
+    let date2
+    if (departure2) {
+      const valid = verifyDateFormat(departure2)
       !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
+      date2 = new Date(departure2)
     }
     const valid = verifyDateFormat(departure1)
     !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
-    const voos = await Voo.find({ ...req.body })
+
+    const date1 = new Date(departure1)
+    const voos = await Voo.find({ ...req.body, departure1: date1, departure2: date2 })
     return res.json(voos)
   }
 
@@ -41,29 +27,23 @@ class VoosController {
     return res.json(voos)
   }
 
-  public async create (req: RequestCreate, res: Response) : Promise<Response> {
-    const { departure1, departure2 = '' } = req.body
+  public async create (req: CreateVooRequest, res: Response) : Promise<Response> {
+    const { departure1, departure2, leg, origin, destination, passengers } = req.body
+    const dadosVoo: {[k: string]: any} = { ...req.body }
+    if (departure2) {
+      const valid = verifyDateFormat(departure2)
+      !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
+      dadosVoo.departure2 = new Date(departure2)
+    }
+
     const valid = verifyDateFormat(departure1)
     !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
-    const [ano1, mes1, dia1] = req.body.departure1.split('/').map(e => parseInt(e))
-    const objVoo : ObjVoo = {
-      departure1: new Date(ano1, mes1, dia1),
-      ...req.body
-    }
-
-    if (departure2 !== '') {
-      const valid = verifyDateFormat(departure1)
-      !valid && res.status(400).json({ erro: 1, message: 'invalid date' })
-      const [ano2, mes2, dia2] = req.body.departure2.split('/').map(e => parseInt(e))
-      objVoo.departure2 = new Date(ano2, mes2, dia2)
-    }
-
-    const { leg, origin, destination } = req.body
-    objVoo.leg = await getAeroporto(leg)
-    objVoo.origin = await getAeroporto(origin)
-    objVoo.destination = await getAeroporto(destination)
-
-    const novoVoo = new Voo(objVoo)
+    dadosVoo.departure1 = new Date(departure1)
+    dadosVoo.leg = await getAeroporto(leg)
+    dadosVoo.origin = await getAeroporto(origin)
+    dadosVoo.destination = await getAeroporto(destination)
+    dadosVoo.totalPassengers = passengers
+    const novoVoo = new Voo({ ...dadosVoo })
     await novoVoo.save()
     return res.json(novoVoo)
   }

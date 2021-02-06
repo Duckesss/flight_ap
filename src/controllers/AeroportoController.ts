@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Aeroporto, { AeroportoCreate } from '../models/Aeroporto'
+import Aeroporto, { AeroportoCreateRequest } from '../models/Aeroporto'
 
 class AeroportoController {
   public async getAll (req: Request, res: Response) : Promise<Response> {
@@ -7,7 +7,7 @@ class AeroportoController {
     return res.json(aeroportos)
   }
 
-  public async create (req: AeroportoCreate, res: Response) : Promise<Response> {
+  public async create (req: AeroportoCreateRequest, res: Response) : Promise<Response> {
     const novoAeroporto = new Aeroporto(req.body)
     await novoAeroporto.save()
     return res.json(novoAeroporto)

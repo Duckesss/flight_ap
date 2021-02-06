@@ -1,10 +1,28 @@
+### COMPRAR VOO
+POST http://localhost:5000/checkout
+Content-Type: application/json
+Authorization: 
+
+{
+  "purchase":{
+    "flight1": string,
+    "fare1": string,
+    "flight2": string,
+    "fare2": string,
+    "passengers": number,
+    "total": {
+      miles: number,
+      money: number
+    }
+  }
+}
+
+
 ### GET MY FLIGHTS
 POST http://localhost:5000/voo/mine
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWRjYzNlYTE2NTZkMDU3ODk0Yjk3NiIsImlhdCI6MTYxMjU2NzM1NywiZXhwIjoxNjEyNTY3NjU3fQ.XNyJHi_XG6vDCyXiEf1yiKN2ncMw-oxrR7oEDfkIN2A
 
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWNkYzI5ODI3ZmYwMDNlY2UwMDllNSIsImlhdCI6MTYxMjUyODYzMiwiZXhwIjoxNjEyNTI4OTMyfQ.TXao4s9DMMZjQzu667TExqsxY_VOemSj-UlXc3VJaMw"
-}
 
 ### GET ALL FLIGHTS
 GET http://localhost:5000/voo/all
@@ -18,10 +36,10 @@ Content-Type: application/json
   "leg": ["GIG"],
   "faresMoney": 30,
   "faresMiles": 500,
-  "fares": "$30,00 - 500 miles",
+  "fares": "$30.00 - 500 miles",
   "origin": "GRU",
   "destination": "LAX",
-  "departure1": "2021/05/02",
+  "departure1": "2021/05/05",
   "passengers": 1
 }
 
@@ -44,16 +62,16 @@ Content-Type: application/json
 }
 
 ### GET AEROPORTOS
-GET http://localhost:5000/aeroporto
+GET http://localhost:5000/locations
 
 ### CREATE AEROPORTO
 POST http://localhost:5000/aeroporto
 Content-Type: application/json
 
 {
-    "code": "POA",
-    "name": "Salgado Filho",
-    "city": "Porto Alegre",
-    "country": "Brazil",
-    "timezone": "America/Sao_Paulo"
-  }
+  "code": "POA",
+  "name": "Salgado Filho",
+  "city": "Porto Alegre",
+  "country": "Brazil",
+  "timezone": "America/Sao_Paulo"
+}

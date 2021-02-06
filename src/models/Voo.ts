@@ -1,28 +1,6 @@
 import mongoose, { Schema, model, Document } from 'mongoose'
 import { Request } from 'express'
 
-interface VooInterface{
-  origin: string;
-  destination: string;
-  departure1: string;
-  passengers: number;
-  departure2?: string;
-}
-
-interface VooRequest extends Request{
-  body:VooInterface
-}
-
-interface VooCreate extends VooInterface{
-    leg: string[];
-    faresMoney: number;
-    faresMiles: number;
-    fares: string;
-}
-interface RequestCreate extends Request{
-  body:VooCreate
-}
-
 const VooSchema = new Schema({
   origin: {
     type: mongoose.Schema.Types.ObjectId,
@@ -39,7 +17,11 @@ const VooSchema = new Schema({
     required: true
   },
   passengers: {
-    type: String,
+    type: Number,
+    required: true
+  },
+  totalPassengers: {
+    type: Number,
     required: true
   },
   departure2: {
@@ -52,7 +34,7 @@ const VooSchema = new Schema({
     required: true
   }],
   faresMoney: {
-    type: String,
+    type: Number,
     required: true
   },
   faresMiles: {
@@ -66,6 +48,43 @@ const VooSchema = new Schema({
 }, {
   timestamps: true
 })
-type VooModel = Document<VooInterface>
+
+interface VooModel extends Document {
+  origin:string;
+  destination:string;
+  departure1:Date;
+  passengers:number;
+  totalPassengers:number;
+  departure2:Date;
+  leg: string[];
+  faresMoney:number;
+  faresMiles:number;
+  fares:string;
+}
+
+interface GetVooRequest extends Request{
+  body:{
+    origin: string;
+    destination: string;
+    departure1: string;
+    passengers: number;
+    departure2?: string;
+  }
+}
+
+interface CreateVooRequest extends Request{
+  body: {
+    leg: string[];
+    faresMoney: number;
+    faresMiles: number;
+    fares: string;
+    origin: string;
+    destination: string;
+    departure1: string;
+    passengers: number;
+    departure2?: string;
+  }
+}
+
 export default model<VooModel>('Voo', VooSchema)
-export { VooRequest, RequestCreate }
+export { GetVooRequest, CreateVooRequest }
