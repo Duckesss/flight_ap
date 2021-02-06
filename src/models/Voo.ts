@@ -87,4 +87,4 @@ interface CreateVooRequest extends Request{
 }
 
 export default model<VooModel>('Voo', VooSchema)
-export { GetVooRequest, CreateVooRequest }
+export { GetVooRequest, CreateVooRequest, VooModel }

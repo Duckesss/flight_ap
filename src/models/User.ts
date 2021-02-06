@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   },
   myFlights: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Aeroporto',
+    ref: 'Voo',
     required: false
   }]
 }, {

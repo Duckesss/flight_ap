@@ -1,5 +1,5 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUxMDc4YWY4NjI2MjEzMGE2YjBjMiIsImlhdCI6MTYxMjU4NTg5NywiZXhwIjoxNjEyNTg2MTk3fQ.bk7AZZzACw1wrrE_O88e0Qcx-Opb-1zvD_SYPV-mS18
-@tokenNovo = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUxMDc4YWY4NjI2MjEzMGE2YjBjMiIsImlhdCI6MTYxMjU4NTkwNiwiZXhwIjoxNjEyNTg2MjA2fQ.Vx2KqfGoqHNs0vq6JduBMAsp_W3UrAIFwr3Sy3713-A
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUzZTY1YWU0Zjk4MGRhMDk0Y2ViZSIsImlhdCI6MTYxMjU5NTU4NywiZXhwIjoxNjEyNTk1ODg3fQ.LwlkDAvrwtVTkryD2_Xl-FxviRjsWJZl5hFj0E4mgaY
+
 ### COMPRAR VOO
 POST http://localhost:5000/checkout
 Content-Type: application/json
@@ -17,7 +17,7 @@ authorization: {{token}}
 ### GET MY FLIGHTS
 POST http://localhost:5000/voo/mine
 Content-Type: application/json
-authorization: {{tokenNovo}}
+authorization: {{token}}
 
 
 ### GET ALL FLIGHTS
