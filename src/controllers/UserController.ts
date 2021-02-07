@@ -34,7 +34,16 @@ class UserController {
    * Retorna todos os voos de um usuário
    */
   public async getMyFlights (req: MyFlightsRequest, res: Response) : Promise<Response> {
-    const user = await User.findOne({ _id: new ObjectId(req.params.userId) }, 'myFlights').populate('myFlights').exec()
+    const user = await User
+      .findOne({ _id: new ObjectId(req.params.userId) }, 'myFlights')
+      .populate([{
+        path: 'myFlights',
+        populate: {
+          path: 'destination',
+          model: 'Aeroporto'
+        }
+      }])
+      .exec()
     return res.json(user)
   }
 

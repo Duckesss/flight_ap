@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUzZTY1YWU0Zjk4MGRhMDk0Y2ViZSIsImlhdCI6MTYxMjU5NTU4NywiZXhwIjoxNjEyNTk1ODg3fQ.LwlkDAvrwtVTkryD2_Xl-FxviRjsWJZl5hFj0E4mgaY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUzZTY1YWU0Zjk4MGRhMDk0Y2ViZSIsImlhdCI6MTYxMjY3MzYwOCwiZXhwIjoxNjEyNjczOTA4fQ.OvBGFVYibSiT4rxxrqI2WnRZ9tVPXU4QB2aJ1j1DPtI
 
 ### COMPRAR VOO
 POST http://localhost:5000/checkout
@@ -7,7 +7,7 @@ authorization: {{token}}
 
 {
   "purchase":{
-    "flight1": "601e10c0af86262130a6b0c4",
+    "flight1": "601f5c73caa1e63accf945ee",
     "passengers": 3,
     "cost": 25
   }
@@ -15,7 +15,7 @@ authorization: {{token}}
 
 
 ### GET MY FLIGHTS
-POST http://localhost:5000/voo/mine
+GET http://localhost:5000/my-flights
 Content-Type: application/json
 authorization: {{token}}
 
@@ -29,13 +29,13 @@ POST http://localhost:5000/voo
 Content-Type: application/json
 
 {
-  "faresMoney": 60,
+  "faresMoney": 60.51,
   "faresMiles": 1000,
   "fares": "$30.00 - 3000 miles",
   "origin": "GRU",
   "destination": "LAX",
   "departure1": "2021/05/05",
-  "passengers": 50
+  "passengers": 0
 }
 
 ### CREATE USER
