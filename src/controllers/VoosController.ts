@@ -6,7 +6,6 @@ class VoosController {
   public async get (req: GetVooRequest, res: Response) : Promise<Response> {
     const allString = Object.values(req.query).every(e => typeof e === 'string')
     if (allString) {
-      console.log(req.query)
       const { departure1, departure2, passengers } = req.query
       delete req.query.passengers
       let date2
@@ -24,6 +23,8 @@ class VoosController {
           req.query.destination = await Aeroporto.getAeroporto(req.query.destination)
           const date1 = new Date(departure1)
           const voos = await Voo.find({ ...req.query, departure1: date1, departure2: date2 })
+            .populate('destination')
+            .exec()
           const allowedFlights = voos.filter(voo => voo.totalPassengers >= (Number(passengers) + voo.passengers))
           return res.json(allowedFlights)
         }
