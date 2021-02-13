@@ -41,10 +41,6 @@ const VooSchema = new Schema({
     type: Number,
     required: true
   },
-  fares: {
-    type: String,
-    required: true
-  }
 }, {
   timestamps: true
 })
@@ -77,7 +73,6 @@ interface CreateVooRequest extends Request{
     leg?: string[];
     faresMoney: number;
     faresMiles: number;
-    fares: string;
     origin: string;
     destination: string;
     departure1: string;

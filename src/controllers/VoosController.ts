@@ -37,6 +37,20 @@ class VoosController {
     }
   }
 
+  public async getPaginated (req: Request, res: Response) : Promise<Response> {
+    let skip = 0
+    let limit = 10
+    if(req.query.page)
+      skip = 10*(Number(req.query.page) - 1)
+    
+    const voos = await Voo.find()
+      .skip(skip).limit(limit)
+      .populate('origin', 'code')
+      .populate('destination', 'code')
+      .populate('leg', 'code').exec()
+    return res.json(voos)
+  }
+  
   public async getAll (req: Request, res: Response) : Promise<Response> {
     const voos = await Voo.find()
       .populate('origin', 'code')

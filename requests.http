@@ -1,5 +1,6 @@
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWUzZTY1YWU0Zjk4MGRhMDk0Y2ViZSIsImlhdCI6MTYxMjY3MzYwOCwiZXhwIjoxNjEyNjczOTA4fQ.OvBGFVYibSiT4rxxrqI2WnRZ9tVPXU4QB2aJ1j1DPtI
 
+
 ### COMPRAR VOO
 POST http://localhost:5000/checkout
 Content-Type: application/json
@@ -11,36 +12,6 @@ authorization: {{token}}
     "passengers": 3,
     "cost": 25
   }
-}
-
-
-### GET FLIGHT
-GET http://localhost:5000/search/?origin=GRU&destination=LAX&departure1=2021/05/05&passengers=3
-Content-Type: application/json
-
-
-### GET MY FLIGHTS
-GET http://localhost:5000/my-flights
-Content-Type: application/json
-authorization: {{token}}
-
-
-### GET ALL FLIGHTS
-GET http://localhost:5000/voo/all
-
-
-### CREATE FLIGHT
-POST http://localhost:5000/voo
-Content-Type: application/json
-
-{
-  "faresMoney": 60.51,
-  "faresMiles": 1000,
-  "fares": "$30.00 - 3000 miles",
-  "origin": "GRU",
-  "destination": "LAX",
-  "departure1": "2021/05/05",
-  "passengers": 500
 }
 
 ### CREATE USER
@@ -62,6 +33,26 @@ Content-Type: application/json
   "password": "admin@123"
 }
 
+
+### GET FLIGHT
+GET http://localhost:5000/search/?origin=GRU&destination=LAX&departure1=2021/05/05&passengers=3
+Content-Type: application/json
+
+
+### GET MY FLIGHTS
+GET http://localhost:5000/my-flights/
+Content-Type: application/json
+authorization: {{token}}
+
+
+### GET FLIGHTS
+GET http://localhost:5000/voo/?&page=3
+
+
+
+### GET ALL FLIGHTS
+GET http://localhost:5000/voo/all
+
 ### GET AEROPORTOS
 GET http://localhost:5000/locations
 
@@ -75,4 +66,16 @@ Content-Type: application/json
   "city": "Porto Alegre",
   "country": "Brazil",
   "timezone": "America/Sao_Paulo"
+}
+### CREATE FLIGHT
+POST http://localhost:5000/voo
+Content-Type: application/json
+
+{
+  "faresMoney": 600,
+  "faresMiles": 1500,
+  "origin": "MAO",
+  "destination": "GRU",
+  "departure1": "2021/12/09",
+  "passengers": 300
 }

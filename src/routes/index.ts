@@ -16,6 +16,7 @@ routes.get('/', (req, res) => {
 routes.get('/locations', AeroportoController.getAll)
 routes.get('/search', VoosController.get)
 routes.get('/voo/all', VoosController.getAll)
+routes.get('/voo', VoosController.getPaginated)
 routes.get('/my-flights', verifyToken, UserController.getMyFlights)
 
 routes.post('/voo', VoosController.create)
