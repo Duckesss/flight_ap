@@ -48,8 +48,6 @@ authorization: {{token}}
 ### GET FLIGHTS
 GET http://localhost:5000/voo/?&page=3
 
-
-
 ### GET ALL FLIGHTS
 GET http://localhost:5000/voo/all
 
