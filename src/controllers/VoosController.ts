@@ -65,6 +65,7 @@ class VoosController {
     dadosVoo.origin = await Aeroporto.getAeroporto(origin)
     dadosVoo.destination = await Aeroporto.getAeroporto(destination)
     dadosVoo.totalPassengers = passengers
+    dadosVoo.passengers = 0
     const novoVoo = new Voo({ ...dadosVoo })
     await novoVoo.save()
     return res.json(novoVoo)

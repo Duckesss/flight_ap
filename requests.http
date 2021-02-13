@@ -40,7 +40,7 @@ Content-Type: application/json
   "origin": "GRU",
   "destination": "LAX",
   "departure1": "2021/05/05",
-  "passengers": 0
+  "passengers": 500
 }
 
 ### CREATE USER

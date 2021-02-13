@@ -1,6 +1,7 @@
 import express from 'express'
 import routes from './routes'
 import Database from './database'
+import{loggerMiddleware} from "./middlewares/Logger";
 import cors from 'cors'
 import * as dotenv from 'dotenv'
 dotenv.config({
@@ -20,6 +21,7 @@ class App {
     private middlewares () {
       this.express.use(express.json())
       this.express.use(cors())
+      this.express.use(loggerMiddleware)
     }
 
     private routes () {
