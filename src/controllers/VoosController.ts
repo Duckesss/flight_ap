@@ -46,7 +46,7 @@ class VoosController {
     const voos = await Voo.find()
       .skip(skip).limit(limit)
       .populate('origin', 'code')
-      .populate('destination', 'code')
+      .populate('destination')
       .populate('leg', 'code').exec()
     return res.json(voos)
   }
