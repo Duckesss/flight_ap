@@ -42,6 +42,12 @@ class UserController {
           path: 'destination',
           model: 'Aeroporto'
         }
+      },{
+        path: 'myFlights',
+        populate: {
+          path: 'origin',
+          model: 'Aeroporto'
+        }
       }])
       .exec()
     return res.json(user)
