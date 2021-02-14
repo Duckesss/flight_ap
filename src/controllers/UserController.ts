@@ -54,7 +54,6 @@ class UserController {
     const { flight1, flight2, cost, passengers } = req.body.purchase
     const arrayVoos = [flight1]
     flight2 && arrayVoos.push(flight2)
-    console.log(arrayVoos)
     const flights = arrayVoos.map(e => new ObjectId(e))
     const [voos, existe] = await getVoo(flights)
     if (!existe) {
