@@ -72,8 +72,18 @@ Content-Type: application/json
 {
   "faresMoney": 600,
   "faresMiles": 1500,
-  "origin": "MAO",
-  "destination": "GRU",
-  "departure1": "2021/12/09",
+  "origin": "GRU",
+  "destination": "LAX",
+  "departure1": "2021/05/05",
+  "departure2": "2021/06/05",
   "passengers": 300
 }
+
+
+### COUNT VOOS
+GET http://localhost:5000/voo/count
+
+
+
+### PING
+GET http://localhost:5000

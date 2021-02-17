@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import Voo, { GetVooRequest, CreateVooRequest } from '../models/Voo'
 import Aeroporto from '../controllers/AeroportoController'
-
+const pageSize = 10;
 
 class VoosController {
 	public async get (req: GetVooRequest, res: Response) : Promise<Response> {
@@ -47,9 +47,9 @@ class VoosController {
   }
   public async getPaginated (req: Request, res: Response) : Promise<Response> {
     let skip = 0
-    let limit = 10
+    let limit = pageSize
     if(req.query.page)
-      skip = 10*(Number(req.query.page) - 1)
+      skip = pageSize*(Number(req.query.page) - 1)
     
     const voos = await Voo.find()
       .skip(skip).limit(limit)
@@ -91,6 +91,12 @@ class VoosController {
     const novoVoo = new Voo({ ...dadosVoo })
     await novoVoo.save()
     return res.json(novoVoo)
+  }
+
+  public async countVoos(req: Request, res: Response) : Promise<Response> {
+    const voos = await Voo.countDocuments({})
+    const pages = Math.floor(voos/pageSize) + (voos%pageSize ? 1 : 0)
+    return res.json(pages)
   }
 }
 export default new VoosController()
