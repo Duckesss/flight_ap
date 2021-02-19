@@ -15,18 +15,18 @@ class VoosController {
 				validParam = verifyDateFormat(value as string)
 				if(!validParam)
 					return retorno
-				retorno.params[key] = new Date(value as string)
+				retorno.allParams[key] = new Date(value as string)
 				retorno.keysEnviadas.push(key)
 				return retorno
 			}
 			retorno.keysEnviadas.push(key)
-			retorno.params[key] = value
+			retorno.allParams[key] = value
 			return retorno
 		},{
 			keysEnviadas: [],
-			params: {}
+      allParams: {},
 		} as {[key: string] : any})
-		const {params,keysEnviadas} = validParams
+		const {allParams,keysEnviadas} = validParams
 		const parametrosObrigatorios = ["origin","destination","departure1"]
 		const requestValida = parametrosObrigatorios.every(param => keysEnviadas.includes(param))
 		if(!requestValida){
@@ -36,13 +36,22 @@ class VoosController {
 				parametros: validParams
 			})
 		}
-		params.origin = await Aeroporto.getAeroporto(params.origin)
-		params.destination = await Aeroporto.getAeroporto(params.destination)
-		const voos = await Voo.find({ ...params })
+		const origin = await Aeroporto.getAeroporto(allParams.origin)
+		const destination = await Aeroporto.getAeroporto(allParams.destination)
+		const voos = await Voo.find({
+      departure1: allParams.departure1,
+      departure2: allParams.departure2,
+      origin: {
+        $in:origin
+      },
+      destination:{
+        $in: destination
+      }
+    })
 		  .populate('origin')
 		  .populate('destination')
 		  .exec()
-		const allowedFlights = voos.filter(voo => voo.totalPassengers >= (Number(params?.passengers || 0) + voo.passengers))
+		const allowedFlights = voos.filter(voo => voo.totalPassengers >= (Number(allParams?.passengers || 0) + voo.passengers))
 		return res.json(allowedFlights)
   }
   public async getPaginated (req: Request, res: Response) : Promise<Response> {
